@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./views/Home";
+import "./css/globals.css";
+import Main from "./views/Main";
 
 function App() {
   return (
     <div>
-      <Home />
+      <Main />
     </div>
   );
 }

@@ -1,7 +1,16 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
 
 const Footer = () => {
-  return <h2>Footer</h2>;
+  return (
+    <Container
+      fluid
+      className="mt-auto bg-dark text-white 
+		pb-2 pt-4"
+    >
+      <p className="text-center">Copyright 2022 (c) Rolling Code School</p>
+    </Container>
+  );
 };
 
 export default Footer;
