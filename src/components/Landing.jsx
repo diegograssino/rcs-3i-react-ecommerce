@@ -1,15 +1,12 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
+import ProductList from "./ProductList";
+import Hero from "./Hero";
 
-const Landing = ({sumarUno, restarUno}) => {
+const Landing = () => {
   return (
-    <div>
-      <button onClick={() => sumarUno()}>+</button>
-      <button onClick={() => restarUno()}>-</button>
-      <Button size="lg" variant="danger">
-        Primary
-      </Button>
-    </div>
+    <>
+      <Hero />
+      <ProductList />
+    </>
   );
 };
 

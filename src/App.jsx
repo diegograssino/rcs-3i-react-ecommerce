@@ -1,12 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./views/Home";
+import Main from "./views/Main";
 
 function App() {
-  return (
-    <div>
-      <Home />
-    </div>
-  );
+  return <Main />;
 }
 
 export default App;
