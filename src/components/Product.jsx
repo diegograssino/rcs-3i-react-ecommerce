@@ -4,10 +4,10 @@ import Card from "react-bootstrap/Card";
 const Product = ({product}) => {
   return (
     <Card className="m-1">
-      <Card.Img src="/img/logo.png" variant="top" />
+      <Card.Img src={product.image} variant="top" />
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-        <Card.Text>{product.description}</Card.Text>
+        <Card.Title>{product.title}</Card.Title>
+        {/* <Card.Text>{product.description}</Card.Text> */}
         <Card.Text>${product.price}</Card.Text>
       </Card.Body>
       <Card.Footer>
