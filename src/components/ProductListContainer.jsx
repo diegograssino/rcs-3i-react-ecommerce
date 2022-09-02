@@ -1,23 +1,20 @@
 import {useEffect, useState} from "react";
 
+import Loader from "./Loader";
 import ProductList from "./ProductList";
 
 const ProductListContainer = () => {
   const [data, setData] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products?limit=3")
+    fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
-      .then((json) => setData(json));
-    setIsLoaded(true);
+      .then((json) => setData(json))
+      .finally(() => setIsLoading(false));
   }, []);
 
-  return (
-    <>
-      {isLoaded ? <ProductList data={data} /> : <h2 className="text-center">Cargando</h2>}
-    </>
-  );
+  return <>{isLoading ? <Loader /> : <ProductList data={data} />}</>;
 };
 
 export default ProductListContainer;
