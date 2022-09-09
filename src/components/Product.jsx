@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
+import {Link} from "react-router-dom";
 
 const Product = ({product}) => {
   return (
@@ -15,7 +16,9 @@ const Product = ({product}) => {
       </Card.Body>
       <Card.Footer>
         <Container className="d-flex justify-content-center align-items-center">
-          <Button size="sm">Ir al producto</Button>
+          <Link to={`/producto/${product.id}`}>
+            <Button size="sm">Ir al producto</Button>
+          </Link>
         </Container>
       </Card.Footer>
     </Card>

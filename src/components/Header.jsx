@@ -2,6 +2,9 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import "../styles/sytles.css";
+
+import {Link} from "react-router-dom";
 
 import Cart from "./Cart";
 
@@ -10,20 +13,24 @@ const Header = () => {
     <>
       <Navbar bg="dark" expand="lg" variant="dark">
         <Container>
-          <Navbar.Brand>
-            <img
-              alt=""
-              className="d-inline-block align-top me-1"
-              height="30"
-              src="/img/logo.png"
-              width="30"
-            />
-            Kwick E-Mart
-          </Navbar.Brand>
-
-          <Cart />
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
+          <Link to="/">
+            <Navbar.Brand>
+              <img
+                alt=""
+                className="d-inline-block align-top me-1"
+                height="30"
+                src="/img/logo.png"
+                width="30"
+              />
+              Kwick E-Mart
+            </Navbar.Brand>
+          </Link>
+          <div className="d-flex">
+            <span>
+              <Cart />
+            </span>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          </div>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>

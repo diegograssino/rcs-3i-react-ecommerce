@@ -1,0 +1,7 @@
+span .navbar-toggler {
+  border: none;
+}
+
+span .navbar-toggler-icon {
+  background-image: url("../../public/img/cart-icon.svg");
+}
