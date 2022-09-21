@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Loader from "./Loader";
 import NothingHere from "./NothingHere";
@@ -16,10 +16,6 @@ const ProductDetailContainer = () => {
       .then((json) => setProduct(json))
       .finally(() => setIsLoading(false));
   }, [params.id]);
-
-  if (!product.price) {
-    return <NothingHere />;
-  }
 
   return <>{isLoading ? <Loader /> : <ProductDetail product={product} />}</>;
 };

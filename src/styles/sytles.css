@@ -5,3 +5,16 @@ span .navbar-toggler {
 span .navbar-toggler-icon {
   background-image: url("../../public/img/cart-icon.svg");
 }
+
+.transform-img {
+  width: 100px;
+}
+
+.transform-img {
+  transition: all 0.3s ease-out;
+}
+
+.transform-img:hover {
+  transform: scale(1.2);
+  transform-origin: center;
+}
