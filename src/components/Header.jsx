@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 
 import Cart from "./Cart";
 
-const Header = () => {
+const Header = ({totalQ, cart, del, clear}) => {
   return (
     <>
       <Navbar bg="dark" expand="lg" variant="dark">
@@ -25,9 +25,10 @@ const Header = () => {
               Kwick E-Mart
             </Navbar.Brand>
           </Link>
-          <div className="d-flex">
+          <div className="d-flex justify-content-center align-items-center text-white">
+            {totalQ()}
             <span>
-              <Cart />
+              <Cart cart={cart} clear={clear} del={del} />
             </span>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </div>
