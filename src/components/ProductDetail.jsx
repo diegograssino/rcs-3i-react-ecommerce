@@ -2,6 +2,7 @@ import {useState} from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
+import {Link} from "react-router-dom";
 
 import ProductCounter from "./ProductCounter";
 
@@ -36,6 +37,9 @@ const ProductDetail = ({product, add}) => {
             >
               Agregar al carrito
             </Button>
+            <Link to="/checkout">
+              <Button>Ir al Carrito</Button>
+            </Link>
           </Container>
         </Card.Footer>
       </Card>

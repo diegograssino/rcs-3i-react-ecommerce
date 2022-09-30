@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "../styles/sytles.css";
 
 import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 import Cart from "./Cart";
 
@@ -26,9 +27,20 @@ const Header = ({totalQ, cart, del, clear}) => {
             </Navbar.Brand>
           </Link>
           <div className="d-flex justify-content-center align-items-center text-white">
-            {totalQ()}
-            <span>
-              <Cart cart={cart} clear={clear} del={del} />
+            <span className="me-2">
+              {/* <Cart cart={cart} clear={clear} del={del} totalQ={totalQ} /> */}
+              <Link to="/checkout">
+                <Button size="sm" variant="outline-primary">
+                  Cart
+                </Button>
+              </Link>
+            </span>
+            <span className="me-4">
+              <Link to="/login">
+                <Button size="sm" variant="outline-success">
+                  Login
+                </Button>
+              </Link>
             </span>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </div>

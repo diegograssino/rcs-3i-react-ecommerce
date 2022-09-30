@@ -5,7 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import Main from "./views/Main";
 
 function App() {
-  // const cart = [] <--- Asi seria en JS
+  // CART
   const [cart, setCart] = useState([]);
 
   const add = (p) => {
@@ -45,9 +45,41 @@ function App() {
     return cart.find((c) => c.id === i);
   };
 
+  const totalPrice = () => {
+    let price = 0;
+
+    for (let i = 0; i < cart.length; i++) {
+      const element = cart[i];
+
+      // price = price + (element.price * element.q)
+      price += element.price * element.q;
+    }
+
+    return price;
+  };
+
+  // LOGIN
+  const USERS = [];
+
+  const [isValidated, setIsValidated] = useState(false);
+
+  const validate = () => {
+    console.log("validate");
+  };
+
   return (
     <BrowserRouter>
-      <Main add={add} cart={cart} clear={clear} del={del} totalQ={totalQ} />
+      <Main
+        add={add}
+        cart={cart}
+        clear={clear}
+        del={del}
+        isValidated={isValidated}
+        setIsValidated={setIsValidated}
+        totalPrice={totalPrice}
+        totalQ={totalQ}
+        validate={validate}
+      />
     </BrowserRouter>
   );
 }

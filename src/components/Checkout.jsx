@@ -1,9 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Button, Card, Container, Form } from "react-bootstrap";
+import {useState, useEffect} from "react";
+import {Button, Card, Container, Form} from "react-bootstrap";
 import validator from "validator";
 
-const Checkout = () => {
+const Checkout = ({totalQ, totalPrice, cart}) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
@@ -17,7 +17,7 @@ const Checkout = () => {
 
   const validateName = (n) => {
     return (
-      validator.matches(n, "^[a-zA-Z ]*$") && validator.isLength(n, { min: 5, max: 36 })
+      validator.matches(n, "^[a-zA-Z ]*$") && validator.isLength(n, {min: 5, max: 36})
     );
   };
 
@@ -34,12 +34,14 @@ const Checkout = () => {
   };
 
   const validatePhone = (p) => {
-    return validator.isNumeric(p) && validator.isLength(p, { min: 10, max: 10 });
+    return validator.isNumeric(p) && validator.isLength(p, {min: 10, max: 10});
   };
 
   const handleBuy = () => {
     if (validateName(name) && validateMail(mail) && validatePhone(phone)) {
-      console.log("Envío el carrito para el pago!");
+      const cartToPay = {name: name, mail: mail, phone: phone, cart: [...cart]};
+
+      console.log(cartToPay);
     } else {
       setFirstName(false);
       setFirstMail(false);
@@ -52,9 +54,20 @@ const Checkout = () => {
 
   return (
     <Container>
-      <div>Acá irá el resumen de la compra</div>
-      {/* {name.length > 0 ? name.length : "0"} */}
-      {/* {name.length > 0 && name.length} */}
+      <Card className="my-3">
+        <Card.Body>
+          <Card.Title>Resumen de la compra</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            Total: ${totalPrice()}
+          </Card.Subtitle>
+
+          {cart.map((c, i) => (
+            <Card.Text key={i}>
+              {c.title} x {c.q}
+            </Card.Text>
+          ))}
+        </Card.Body>
+      </Card>
       <div>
         <h3>Formulario con los datos del comprador</h3>
         <Card className="p-3">
