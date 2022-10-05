@@ -59,23 +59,41 @@ function App() {
   };
 
   // LOGIN
-  const USERS = [];
+  const USERS = [
+    {user: "admin", pass: "admin", role: "admin"},
+    {user: "user", pass: "user", role: "user"},
+  ];
 
-  const [isValidated, setIsValidated] = useState(false);
+  const [auth, setAuth] = useState({user: "", role: ""});
 
-  const validate = () => {
-    console.log("validate");
+  const validate = (u, p) => {
+    const userFound = USERS.find((user) => user.user === u);
+    const passOk = p === userFound.pass;
+
+    return userFound && passOk;
+  };
+
+  const login = (u) => {
+    const userFound = USERS.find((user) => user.user === u);
+
+    setAuth({user: userFound.user, role: userFound.role});
+  };
+
+  const logout = () => {
+    setAuth({user: "", role: ""});
   };
 
   return (
     <BrowserRouter>
       <Main
         add={add}
+        auth={auth}
         cart={cart}
         clear={clear}
         del={del}
-        isValidated={isValidated}
-        setIsValidated={setIsValidated}
+        login={login}
+        logout={logout}
+        setAuth={setAuth}
         totalPrice={totalPrice}
         totalQ={totalQ}
         validate={validate}

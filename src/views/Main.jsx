@@ -17,44 +17,36 @@ const Main = ({
   del,
   clear,
   totalPrice,
-  isValidated,
-  setIsValidated,
+  auth,
+  login,
+  logout,
   validate,
+  setAuth,
 }) => {
   return (
     <Container fluid className="px-0 d-flex flex-column min-vh-100">
-      <Header cart={cart} clear={clear} del={del} totalQ={totalQ} />
+      <Header auth={auth} cart={cart} clear={clear} del={del} totalQ={totalQ} />
 
       <Routes>
         <Route element={<Landing />} path="/" />
-        <Route element={<ProductDetailContainer add={add} />} path="/producto/:id" />
+        <Route
+          element={<ProductDetailContainer add={add} auth={auth} />}
+          path="/producto/:id"
+        />
         <Route element={<About />} path="/about" />
         <Route
           element={
-            isValidated ? (
-              <Checkout
-                cart={cart}
-                isValidated={isValidated}
-                totalPrice={totalPrice}
-                totalQ={totalQ}
-              />
+            auth.user ? (
+              <Checkout auth={auth} cart={cart} totalPrice={totalPrice} totalQ={totalQ} />
             ) : (
-              <Login
-                isValidated={isValidated}
-                setIsValidated={setIsValidated}
-                validate={validate}
-              />
+              <Login auth={auth} login={login} setAuth={setAuth} validate={validate} />
             )
           }
           path="/checkout"
         />
         <Route
           element={
-            <Login
-              isValidated={isValidated}
-              setIsValidated={setIsValidated}
-              validate={validate}
-            />
+            <Login auth={auth} login={login} setAuth={setAuth} validate={validate} />
           }
           path="/login"
         />

@@ -9,7 +9,7 @@ import {Button} from "react-bootstrap";
 
 import Cart from "./Cart";
 
-const Header = ({totalQ, cart, del, clear}) => {
+const Header = ({totalQ, cart, del, clear, auth}) => {
   return (
     <>
       <Navbar bg="dark" expand="lg" variant="dark">
@@ -31,14 +31,19 @@ const Header = ({totalQ, cart, del, clear}) => {
               {/* <Cart cart={cart} clear={clear} del={del} totalQ={totalQ} /> */}
               <Link to="/checkout">
                 <Button size="sm" variant="outline-primary">
-                  Cart
+                  Cart {totalQ() > 0 && <span> {`(${totalQ()})`}</span>}
                 </Button>
               </Link>
             </span>
             <span className="me-4">
               <Link to="/login">
-                <Button size="sm" variant="outline-success">
-                  Login
+                <Button
+                  size="sm"
+                  variant={
+                    auth.user === "" ? "outline-success" : "outline-danger border-0"
+                  }
+                >
+                  {auth.user === "" ? "Login" : auth.user}
                 </Button>
               </Link>
             </span>
