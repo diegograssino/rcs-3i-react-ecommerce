@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import {Button, Card, Container, Form} from "react-bootstrap";
 import validator from "validator";
 
-const Checkout = ({totalQ, totalPrice, cart}) => {
+const Checkout = ({totalQ, totalPrice, cart, del}) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
@@ -62,9 +62,19 @@ const Checkout = ({totalQ, totalPrice, cart}) => {
           </Card.Subtitle>
 
           {cart.map((c, i) => (
-            <Card.Text key={i}>
-              {c.title} x {c.q}
-            </Card.Text>
+            <Container className="d-flex">
+              <Card.Text key={i}>
+                {c.title} x {c.q}
+              </Card.Text>
+              <Button
+                className="ms-3"
+                size="sm"
+                variant="danger"
+                onClick={() => del(c.id)}
+              >
+                Eliminar
+              </Button>
+            </Container>
           ))}
         </Card.Body>
       </Card>

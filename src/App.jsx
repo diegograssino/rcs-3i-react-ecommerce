@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useState} from "react";
 import {BrowserRouter} from "react-router-dom";
+import {ToastContainer, toast} from "react-toastify";
 
 import Main from "./views/Main";
 
@@ -19,10 +20,12 @@ function App() {
     } else {
       setCart([...cart, p]);
     }
+    toast("Agregado con exito!");
   };
 
   const del = (i) => {
     setCart(cart.filter((c) => c.id !== i));
+    toast("Borrado con exito!");
   };
 
   const totalQ = () => {
@@ -39,6 +42,7 @@ function App() {
 
   const clear = () => {
     setCart([]);
+    toast("Vaciado con exito!");
   };
 
   const isDuplicate = (i) => {
@@ -85,6 +89,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Main
         add={add}
         auth={auth}

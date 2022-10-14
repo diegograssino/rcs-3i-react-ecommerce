@@ -20,6 +20,18 @@ const ProductDetail = ({product, add, auth}) => {
   const [editPrice, setEditPrice] = useState(product.price);
   const [editDescription, setEditDescription] = useState(product.description);
 
+  const comments = [
+    {user: "user1", comment: "Lorem ipsum ..."},
+    {user: "user2", comment: "Lorem ipsum ..."},
+    {user: "user3", comment: "Lorem ipsum ..."},
+  ];
+
+  const addComment = (e) => {
+    console.log("addComment");
+    // Postear hacia la API la info del comentario
+    // Pushear a lo que ya tengo ese mismo comentario
+  };
+
   return (
     <>
       <Card className="m-1 h-100 border-0">
@@ -53,10 +65,11 @@ const ProductDetail = ({product, add, auth}) => {
               </Container>
             </Card.Footer>
             <Card.Footer className="border-0">
-              <Container className="d-flex justify-content-center align-items-center">
+              <Container className="d-flex justify-content-center align-items-center g-2">
                 <Link to="/checkout">
                   <Button size="sm">Ir al Carrito</Button>
                 </Link>
+                <Button size="sm">Favorito</Button>
               </Container>
             </Card.Footer>
           </>
@@ -75,6 +88,15 @@ const ProductDetail = ({product, add, auth}) => {
           </Card.Footer>
         )}
       </Card>
+      <Container>
+        <input className="w-100" placeholder="Ingrese su comentario" type="text" />
+        <Button onClick={() => addComment(estado)}>Enviar</Button>
+        {comments.map((comment, i) => (
+          <div key={i} className="border">
+            <span> {comment.comment}</span> <span> ({comment.user})</span>{" "}
+          </div>
+        ))}
+      </Container>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Editar producto</Modal.Title>

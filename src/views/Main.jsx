@@ -9,6 +9,7 @@ import NothingHere from "../components/NothingHere";
 import About from "../components/About";
 import Checkout from "../components/Checkout";
 import Login from "../components/Login";
+import SignUp from "../components/SignUp.jsx";
 
 const Main = ({
   add,
@@ -25,7 +26,14 @@ const Main = ({
 }) => {
   return (
     <Container fluid className="px-0 d-flex flex-column min-vh-100">
-      <Header auth={auth} cart={cart} clear={clear} del={del} totalQ={totalQ} />
+      <Header
+        auth={auth}
+        cart={cart}
+        clear={clear}
+        del={del}
+        logout={logout}
+        totalQ={totalQ}
+      />
 
       <Routes>
         <Route element={<Landing />} path="/" />
@@ -37,7 +45,13 @@ const Main = ({
         <Route
           element={
             auth.user ? (
-              <Checkout auth={auth} cart={cart} totalPrice={totalPrice} totalQ={totalQ} />
+              <Checkout
+                auth={auth}
+                cart={cart}
+                del={del}
+                totalPrice={totalPrice}
+                totalQ={totalQ}
+              />
             ) : (
               <Login auth={auth} login={login} setAuth={setAuth} validate={validate} />
             )
@@ -50,6 +64,7 @@ const Main = ({
           }
           path="/login"
         />
+        <Route element={<SignUp />} path="/signup" />
         <Route element={<NothingHere />} path="*" />
       </Routes>
 

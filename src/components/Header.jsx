@@ -3,15 +3,21 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../styles/sytles.css";
+import {ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
-import Cart from "./Cart";
+const Header = ({totalQ, auth, logout}) => {
+  const handleClick = () => {
+    logout();
+    toast("Sesión cerrada con exito!", {autoClose: 1500});
+  };
 
-const Header = ({totalQ, cart, del, clear, auth}) => {
   return (
     <>
+      <ToastContainer />
       <Navbar bg="dark" expand="lg" variant="dark">
         <Container>
           <Link to="/">
@@ -28,7 +34,6 @@ const Header = ({totalQ, cart, del, clear, auth}) => {
           </Link>
           <div className="d-flex justify-content-center align-items-center text-white">
             <span className="me-2">
-              {/* <Cart cart={cart} clear={clear} del={del} totalQ={totalQ} /> */}
               <Link to="/checkout">
                 <Button size="sm" variant="outline-primary">
                   Cart {totalQ() > 0 && <span> {`(${totalQ()})`}</span>}
@@ -36,16 +41,21 @@ const Header = ({totalQ, cart, del, clear, auth}) => {
               </Link>
             </span>
             <span className="me-4">
-              <Link to="/login">
+              {auth.user === "" ? (
+                <Link to="/login">
+                  <Button size="sm" variant="outline-success">
+                    Login
+                  </Button>
+                </Link>
+              ) : (
                 <Button
                   size="sm"
-                  variant={
-                    auth.user === "" ? "outline-success" : "outline-danger border-0"
-                  }
+                  variant="outline-danger border-0"
+                  onClick={() => handleClick()}
                 >
-                  {auth.user === "" ? "Login" : auth.user}
+                  {auth.user}
                 </Button>
-              </Link>
+              )}
             </span>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </div>
