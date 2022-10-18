@@ -11,7 +11,7 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
   const [firstName, setFirstName] = useState(true);
   const [firstMail, setFirstMail] = useState(true);
   const [firstPhone, setFirstPhone] = useState(true);
-  const [counter, setCounter] = useState('');
+  const [counter, setCounter] = useState(1);
 
   const saveName = (e) => {
     setName(e.target.value);
@@ -62,13 +62,13 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
           <Card.Subtitle className="mb-2 text-muted">
             Total: ${totalPrice()}
           </Card.Subtitle>
-          {counter}
+          
           {cart.map((c, i) => (
             <Container className="d-flex">
               <Card.Text key={i}>
-                {c.title} x {()=>setCounter(c.q)}
+                {c.title} x
               </Card.Text>
-              <ProductCounter  />
+              <ProductCounter counter={c.q} setCounter={setCounter}/>
               <Button
                 className="ms-3"
                 size="sm"
