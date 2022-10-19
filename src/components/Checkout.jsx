@@ -3,7 +3,8 @@ import {useState, useEffect} from "react";
 import {Button, Card, Container, Form} from "react-bootstrap";
 import validator from "validator";
 import ProductCounter from "./ProductCounter";
- 
+import ProductCounter2 from "./ProductCounter2"; 
+
 const Checkout = ({totalQ, totalPrice, cart, del}) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
@@ -11,7 +12,6 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
   const [firstName, setFirstName] = useState(true);
   const [firstMail, setFirstMail] = useState(true);
   const [firstPhone, setFirstPhone] = useState(true);
-  const [counter, setCounter] = useState();
 
   const saveName = (e) => {
     setName(e.target.value);
@@ -53,7 +53,7 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
   };
 
   useEffect(() => {}, [name, mail, phone]);
-
+  
   return (
     <Container>
       <Card className="my-3">
@@ -62,13 +62,12 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
           <Card.Subtitle className="mb-2 text-muted">
             Total: ${totalPrice()}
           </Card.Subtitle>
-          
           {cart.map((c, i) => (
             <Container className="d-flex">
               <Card.Text key={i}>
-                {c.title} x {counter}
+                {c.title} 
               </Card.Text>
-              <ProductCounter counter={c.q} setCounter={setCounter}/>
+              <ProductCounter2 q={c.q}/>
               <Button
                 className="ms-3"
                 size="sm"
