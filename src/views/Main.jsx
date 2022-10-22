@@ -51,6 +51,7 @@ const Main = ({
                 del={del}
                 totalPrice={totalPrice}
                 totalQ={totalQ}
+                add={add}
               />
             ) : (
               <Login auth={auth} login={login} setAuth={setAuth} validate={validate} />

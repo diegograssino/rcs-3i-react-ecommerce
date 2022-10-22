@@ -3,12 +3,13 @@ import { useState } from 'react';
 import {Button, Container} from "react-bootstrap";
 
 
-const ProductCounter2 = ({q}) => {
+const ProductCounter2 = ({q, add,cp}) => {
 
 const [counter, setCounter] = useState(q);
 
     const addCounter = (c, q) => {
         setCounter(c + q);
+        add(cp);
       };
       
       const minusCounter = (c, q) => {
