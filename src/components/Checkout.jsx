@@ -5,7 +5,7 @@ import validator from "validator";
 import ProductCounter from "./ProductCounter";
 import ProductCounter2 from "./ProductCounter2"; 
 
-const Checkout = ({totalQ, totalPrice, cart, del, add}) => {
+const Checkout = ({totalQ, totalPrice, cart, del, add, setCart}) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
@@ -67,7 +67,7 @@ const Checkout = ({totalQ, totalPrice, cart, del, add}) => {
               <Card.Text key={i}>
                 {c.title} 
               </Card.Text>
-              <ProductCounter2 cp={c} q={c.q} add={add}/>
+              <ProductCounter2 setCart={setCart} cart={cart} cp={c} q={c.q} add={add}/>
               <Button
                 className="ms-3"
                 size="sm"

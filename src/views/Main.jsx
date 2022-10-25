@@ -23,6 +23,7 @@ const Main = ({
   logout,
   validate,
   setAuth,
+  setCart,
 }) => {
   return (
     <Container fluid className="px-0 d-flex flex-column min-vh-100">
@@ -52,6 +53,7 @@ const Main = ({
                 totalPrice={totalPrice}
                 totalQ={totalQ}
                 add={add}
+                setCart={setCart}
               />
             ) : (
               <Login auth={auth} login={login} setAuth={setAuth} validate={validate} />
