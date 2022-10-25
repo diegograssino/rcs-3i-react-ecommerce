@@ -13,7 +13,7 @@ function App() {
     if (isDuplicate(p.id)) {
       const newCart = cart.filter((c) => c.id !== p.id);
       const previousQ = cart.find((c) => c.id === p.id).q;
-
+      
       // Esto es lo mismo que p.q = p.q + previousQ
       p.q += previousQ;
       setCart([...newCart, p]);
@@ -102,6 +102,7 @@ function App() {
         totalPrice={totalPrice}
         totalQ={totalQ}
         validate={validate}
+        setCart={setCart}
       />
     </BrowserRouter>
   );

@@ -2,16 +2,16 @@ import React from "react";
 import {Button, Container} from "react-bootstrap";
 
 const ProductCounter = ({setCounter, counter}) => {
+  
   const addCounter = (c, q) => {
     setCounter(c + q);
   };
-
+  
   const minusCounter = (c, q) => {
     if (c > 1) {
       setCounter(c - q);
     }
   };
-
   return (
     <div>
       <Container className="d-flex">
