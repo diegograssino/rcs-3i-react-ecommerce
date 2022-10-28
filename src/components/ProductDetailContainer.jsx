@@ -11,7 +11,7 @@ const ProductDetailContainer = ({add, auth}) => {
   const params = useParams();
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${params.id}`)
+    fetch(`http://localhost:4000/product/${params.id}`)
       .then((res) => res.json())
       .then((json) => setProduct(json))
       .finally(() => setIsLoading(false));

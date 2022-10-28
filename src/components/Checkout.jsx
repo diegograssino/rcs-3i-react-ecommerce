@@ -3,6 +3,8 @@ import {useState, useEffect} from "react";
 import {Button, Card, Container, Form} from "react-bootstrap";
 import validator from "validator";
 
+import ProductCounter from "./ProductCounter";
+
 const Checkout = ({totalQ, totalPrice, cart, del}) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
@@ -10,6 +12,7 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
   const [firstName, setFirstName] = useState(true);
   const [firstMail, setFirstMail] = useState(true);
   const [firstPhone, setFirstPhone] = useState(true);
+  const [counter, setCounter] = useState(1);
 
   const saveName = (e) => {
     setName(e.target.value);
@@ -41,7 +44,13 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
     if (validateName(name) && validateMail(mail) && validatePhone(phone)) {
       const cartToPay = {name: name, mail: mail, phone: phone, cart: [...cart]};
 
-      console.log(cartToPay);
+      fetch("http://localhost:4000/checkout", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(cartToPay),
+      })
+        .then((res) => res.json())
+        .then((json) => console.log(json));
     } else {
       setFirstName(false);
       setFirstMail(false);
@@ -66,6 +75,7 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
               <Card.Text key={i}>
                 {c.title} x {c.q}
               </Card.Text>
+              <ProductCounter counter={counter} setCounter={setCounter} />
               <Button
                 className="ms-3"
                 size="sm"
