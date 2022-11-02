@@ -2,6 +2,7 @@ import React from "react";
 import {useState, useEffect} from "react";
 import {Button, Card, Container, Form} from "react-bootstrap";
 import validator from "validator";
+import {ToastContainer, toast} from "react-toastify";
 
 import ProductCounter from "./ProductCounter";
 
@@ -13,6 +14,8 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
   const [firstMail, setFirstMail] = useState(true);
   const [firstPhone, setFirstPhone] = useState(true);
   const [counter, setCounter] = useState(1);
+
+  const [showMessage, setShowMessage] = useState("");
 
   const saveName = (e) => {
     setName(e.target.value);
@@ -40,6 +43,12 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
     return validator.isNumeric(p) && validator.isLength(p, {min: 10, max: 10});
   };
 
+  useEffect(() => {
+    if (showMessage) {
+      toast.success(`Compra exitosa! ID ${showMessage}`);
+    }
+  }, [showMessage]);
+
   const handleBuy = () => {
     if (validateName(name) && validateMail(mail) && validatePhone(phone)) {
       const cartToPay = {name: name, mail: mail, phone: phone, cart: [...cart]};
@@ -50,7 +59,9 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
         body: JSON.stringify(cartToPay),
       })
         .then((res) => res.json())
-        .then((json) => console.log(json));
+        .then((json) => setShowMessage(json.id));
+      // TODO Agregar finally luego del the para que se resetee el carrito.
+      // TODO Agregar (tambien en el finally) una redireccion DENTRO de React en un setTimeOut para que quede esperando un minimo tiempo y no sea tan brusca
     } else {
       setFirstName(false);
       setFirstMail(false);
@@ -59,10 +70,9 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
     }
   };
 
-  useEffect(() => {}, [name, mail, phone]);
-
   return (
     <Container>
+      <ToastContainer />
       <Card className="my-3">
         <Card.Body>
           <Card.Title>Resumen de la compra</Card.Title>
@@ -71,8 +81,8 @@ const Checkout = ({totalQ, totalPrice, cart, del}) => {
           </Card.Subtitle>
 
           {cart.map((c, i) => (
-            <Container className="d-flex">
-              <Card.Text key={i}>
+            <Container key={Symbol(i).toString() + i} className="d-flex">
+              <Card.Text>
                 {c.title} x {c.q}
               </Card.Text>
               <ProductCounter counter={counter} setCounter={setCounter} />
