@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import Loader from "./Loader";
 import ProductList from "./ProductList";
@@ -8,7 +8,7 @@ const ProductListContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:4000/products")
+    fetch("https://rcs-3i-api-node.vercel.app/products/all")
       .then((res) => res.json())
       .then((json) => setData(json))
       .finally(() => setIsLoading(false));

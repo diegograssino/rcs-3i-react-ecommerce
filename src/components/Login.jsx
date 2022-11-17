@@ -1,28 +1,46 @@
-import {useEffect} from "react";
-import {useState} from "react";
-import {Container} from "react-bootstrap";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {Link, useNavigate} from "react-router-dom";
-import {ToastContainer, toast} from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
-function Login({auth, login, validate, setAuth}) {
+function Login({ auth, login, validate, setAuth }) {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
+  const [loginOk, setLoginOk] = useState("");
+
   const navigate = useNavigate();
 
-  const handleValidation = (e) => {
-    e.preventDefault();
-    if (validate(mail, pass)) {
-      login(mail);
+  useEffect(() => {
+    if (loginOk.role) {
+      login(mail, "admin");
       navigate("/");
-      toast(`Bienvenido ${mail}!`, {autoClose: 1500});
+      toast(`Bienvenido ${mail}!`, { autoClose: 1500 });
+    } else if (loginOk.role === false) {
+      toast(`Credenciales incorrectas`, { autoClose: 1500 });
     }
+  }, [loginOk]);
+
+  const handleValidation = async (e) => {
+    e.preventDefault();
+    setLoginOk({ name: null, role: null });
+    fetch("https://rcs-3i-api-node.vercel.app/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: mail, password: pass }),
+    })
+      .then((res) => res.json())
+      .then((json) => setLoginOk({ name: mail, role: json.role }))
+      .catch((error) => setLoginOk({ name: null, role: false }));
   };
 
   return (
     <Container className="mt-3">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>

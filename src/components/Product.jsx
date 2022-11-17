@@ -1,16 +1,16 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Product = ({product}) => {
+const Product = ({ product }) => {
   return (
     <Card className="m-1 h-100">
       <Container className="d-flex justify-content-center align-items-center">
         <Card.Img
           className="transform-img"
           src={product.image}
-          style={{width: "100px"}}
+          style={{ width: "100px" }}
           variant="top"
         />
       </Container>
@@ -21,7 +21,7 @@ const Product = ({product}) => {
       </Card.Body>
       <Card.Footer>
         <Container className="d-flex justify-content-center align-items-center">
-          <Link to={`/producto/${product.id}`}>
+          <Link to={`/producto/${product._id}`}>
             <Button size="sm">Ir al producto</Button>
           </Link>
         </Container>

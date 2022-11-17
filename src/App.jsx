@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import {useState} from "react";
-import {BrowserRouter} from "react-router-dom";
-import {ToastContainer, toast} from "react-toastify";
+import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 import Main from "./views/Main";
 
@@ -64,27 +64,35 @@ function App() {
 
   // LOGIN
   const USERS = [
-    {user: "admin", pass: "admin", role: "admin"},
-    {user: "user", pass: "user", role: "user"},
+    { user: "admin", pass: "admin", role: "admin" },
+    { user: "user", pass: "user", role: "user" },
   ];
 
-  const [auth, setAuth] = useState({user: "", role: ""});
+  const [auth, setAuth] = useState({ user: "", role: "" });
 
-  const validate = (u, p) => {
-    const userFound = USERS.find((user) => user.user === u);
-    const passOk = p === userFound.pass;
+  const validate = async (u, p) => {
+    const response = await fetch("https://rcs-3i-api-node.vercel.app/users/login", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: u, password: p }),
+    });
 
-    return userFound && passOk;
+    // const userFound = USERS.find((user) => user.user === u);
+    // const passOk = p === userFound.pass;
+    console.log(response);
+
+    return response;
   };
 
-  const login = (u) => {
-    const userFound = USERS.find((user) => user.user === u);
-
-    setAuth({user: userFound.user, role: userFound.role});
+  const login = (u, r) => {
+    setAuth({ user: u, role: r });
   };
 
   const logout = () => {
-    setAuth({user: "", role: ""});
+    setAuth({ user: "", role: "" });
   };
 
   return (

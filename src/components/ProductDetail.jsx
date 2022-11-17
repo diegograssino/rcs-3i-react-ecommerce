@@ -1,29 +1,59 @@
-import {useState} from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
 
 import ProductCounter from "./ProductCounter";
+import ProductList from "./ProductList";
 
-const ProductDetail = ({product, add, auth}) => {
+const ProductDetail = ({ product, add, auth }) => {
   const [counter, setCounter] = useState(1);
-
   const [show, setShow] = useState(false);
+  const [submitOk, setSubmitOk] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitOk(null);
+    fetch("https://rcs-3i-api-node.vercel.app/products/update/" + product._id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        category: product.category,
+        description: editDescription,
+        image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+        price: editPrice,
+        title: editName,
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => setSubmitOk(true))
+      .catch((error) => setSubmitOk(false));
+  };
 
   const [editName, setEditName] = useState(product.title);
   const [editPrice, setEditPrice] = useState(product.price);
   const [editDescription, setEditDescription] = useState(product.description);
 
+  useEffect(() => {
+    if (submitOk) {
+      toast("Modificado!");
+    } else if (submitOk === false) {
+      toast("Algo ha salido mal ...");
+    }
+  }, [submitOk]);
+
   const comments = [
-    {user: "user1", comment: "Lorem ipsum ..."},
-    {user: "user2", comment: "Lorem ipsum ..."},
-    {user: "user3", comment: "Lorem ipsum ..."},
+    { user: "user1", comment: "Lorem ipsum ..." },
+    { user: "user2", comment: "Lorem ipsum ..." },
+    { user: "user3", comment: "Lorem ipsum ..." },
   ];
 
   const addComment = (e) => {
@@ -36,7 +66,7 @@ const ProductDetail = ({product, add, auth}) => {
     <>
       <Card className="m-1 h-100 border-0">
         <Container className="d-flex justify-content-center align-items-center">
-          <Card.Img src={product.image} style={{width: "100px"}} variant="top" />
+          <Card.Img src={product.image} style={{ width: "100px" }} variant="top" />
         </Container>
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>
@@ -53,7 +83,7 @@ const ProductDetail = ({product, add, auth}) => {
                   variant="success"
                   onClick={() =>
                     add({
-                      id: product.id,
+                      id: product._id,
                       title: product.title,
                       price: product.price,
                       q: counter,
@@ -135,7 +165,7 @@ const ProductDetail = ({product, add, auth}) => {
               />
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" onClick={(e) => handleSubmit(e)}>
               Submit
             </Button>
           </Form>
